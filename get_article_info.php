@@ -49,11 +49,12 @@ if (!empty($result['cover'])) {
         CURLOPT_FOLLOWLOCATION => true,
         CURLOPT_SSL_VERIFYPEER => false,
         CURLOPT_SSL_VERIFYHOST => false,
-        CURLOPT_USERAGENT => 'iAliexpress/6.22.1 (iPhone; iOS 12.1.2; Scale/2.00)',
+        CURLOPT_USERAGENT => 'Mozilla/5.0 (Windows NT 10.0; WOW64; Trident/7.0; rv:11.0) like Gecko',
         CURLOPT_POST => true,
         CURLOPT_POSTFIELDS => [
             'token' => 'fd9379f57917407f8239dd03a3de0248',
-            'file' => new CurlFile($filename),
+            'sync' => 1,
+            'src' => $result['cover'],
         ],
     ]);
     $result['cover'] = json_decode(curl_exec($ch), true)['url'];
