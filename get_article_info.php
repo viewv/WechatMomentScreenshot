@@ -42,7 +42,7 @@ if (!empty($result['cover'])) {
     file_put_contents($filename, curl_exec($ch));
     curl_close($ch);
 
-    $ch = curl_init('https://kfupload.alibaba.com/mupload');
+    $ch = curl_init('https://api.superbed.cn/upload');
     curl_setopt_array($ch, [
         CURLOPT_VERBOSE => true,
         CURLOPT_RETURNTRANSFER => true,
@@ -52,9 +52,8 @@ if (!empty($result['cover'])) {
         CURLOPT_USERAGENT => 'iAliexpress/6.22.1 (iPhone; iOS 12.1.2; Scale/2.00)',
         CURLOPT_POST => true,
         CURLOPT_POSTFIELDS => [
+            'token' => 'fd9379f57917407f8239dd03a3de0248',
             'file' => new CurlFile($filename),
-            'scene' => 'aeMessageCenterV2ImageRule',
-            'name' => $filename,
         ],
     ]);
     $result['cover'] = json_decode(curl_exec($ch), true)['url'];
@@ -65,4 +64,3 @@ if (!empty($result['cover'])) {
 
 $result['success'] = !empty($result['title']) && !empty($result['cover']);
 echo json_encode($result, JSON_UNESCAPED_UNICODE);
-?>
